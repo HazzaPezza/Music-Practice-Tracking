@@ -6,11 +6,18 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}">
   </head>
-  <body>
-    <h1>Music Practice Tracking</h1>
-    <p>A space to track and record your music practice session and notes.</p>
+  <body style="background-image: url('{{ url_for("static", filename="images/background_image.png") }}');">
+    
+    <div class="main-page-items">
+      <h1>Music Practice Tracking</h1>
+      <p>A space to track and record your music practice session and notes.</p>
+      <div class="nav-buttons">
+        <button class="main-nav-button">Sign-Up</button>
+        <button class="main-nav-button">Login</button>
+      </div>
+    </div>
     
     <script src="" async defer></script>
   </body>

@@ -1,0 +1,14 @@
+* {
+  font-family: sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+.main-page-items {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  max-width: 500px;
+}
