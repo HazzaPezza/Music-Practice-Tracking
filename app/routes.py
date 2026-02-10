@@ -12,11 +12,12 @@ def index():
   """
   return render_template('index.html')
 
+# Going to start with sign up and post operations to DB.
+@app.route('/sign-up', methods=['GET', 'POST'])
+def sign_up():
+  return render_template('sign-up.html')
+
+# Second gonna do login so that I know what I'm doing with that.
 @app.route('/login')
 def login():
   return render_template('login.html')
-
-@app.route('/sign-up')
-def sign_up():
-  return render_template('sign-up.html')
-  
