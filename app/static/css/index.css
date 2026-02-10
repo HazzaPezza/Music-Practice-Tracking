@@ -6,9 +6,51 @@ body {
   margin: 0;
 }
 
+.central-content-container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+} 
+
 .main-page-items {
   display: flex;
   flex-direction: column;
   background-color: white;
-  max-width: 500px;
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: center;
+  gap: clamp(20px, 30px, 50px)
+}
+
+.main-nav-button {
+  border: 1px solid black;
+  background-color: white;
+  padding: clamp(1rem, 2vw, 3rem) clamp(3rem, 5vw, 6rem);
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.main-nav-button:hover {
+  background-color: black;
+  color: white;
+  transition: 0.2s;
+}
+
+.central-header {
+  font-size: clamp(3rem, 6vw, 6rem);
+  margin: 0;
+}
+
+.central-description {
+  font-size: clamp(0.8rem, 3vw, 2rem);
 }
