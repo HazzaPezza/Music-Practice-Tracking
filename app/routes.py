@@ -1,6 +1,7 @@
 from flask import render_template
 from app import app
 
+# ----- Index Routes and API Endpoints -----
 @app.route('/')
 @app.route('/index')
 def index():
@@ -12,11 +13,23 @@ def index():
   """
   return render_template('index.html')
 
+<<<<<<< HEAD
 # Going to start with sign up and post operations to DB.
 @app.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
   return render_template('sign-up.html')
 
+=======
+
+# ----- Sign-up Routes and API Endpoints -----
+# Going to start with sign up and post operations to DB.
+@app.route('/sign-up')
+def sign_up():
+  return render_template('sign-up.html')
+
+
+# ----- Login Routes and API Endpoints -----
+>>>>>>> d5ff033 (Some setup for a sign-up form)
 # Second gonna do login so that I know what I'm doing with that.
 @app.route('/login')
 def login():
