@@ -14,13 +14,6 @@ def index():
   return render_template('index.html')
 
 
-# Going to start with sign up and post operations to DB.
-@app.route('/sign-up', methods=['GET', 'POST'])
-def sign_up():
-  return render_template('sign-up.html')
-
-
-
 # ----- Sign-up Routes and API Endpoints -----
 # Going to start with sign up and post operations to DB.
 @app.route('/sign-up')
