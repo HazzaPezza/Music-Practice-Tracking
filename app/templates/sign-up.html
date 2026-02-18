@@ -1,11 +1,16 @@
-<h1>Sign-up</h1>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sign-up.css')}}">
 
-<form method="POST">
-  <input type="text" name="username" placeholder="Enter Username..." required>
-  <input type="password" name="password" placeholder="Enter Password..." required>
-  <input type="email" name="email" placeholder="Enter Email..." required>
-  <button type="submit">Sign Up</button>
-</form>
+<div class="form-container">
+  <div class="form-elements">
+    <h1>Sign-up</h1>
+    <form method="POST" class="form">
+      <input type="text" name="username" placeholder="Enter Username..." required>
+      <input type="password" name="password" placeholder="Enter Password..." required>
+      <input type="email" name="email" placeholder="Enter Email..." required>
+      <button type="submit">Sign Up</button>
+    </form>
+  </div
+</div>
 
 <ul>
   {% for user in users %}
