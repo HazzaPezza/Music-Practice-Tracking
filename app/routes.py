@@ -21,22 +21,26 @@ def index():
 # Going to start with sign up and post operations to DB.
 @main_bp.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
-  if request.method == 'POST':
-    print(f"ALL FORM DATA: {request.form}")
 
+  # If the method is POST (Form submitted) collect form information.
+  if request.method == 'POST':
     username = request.form.get('username')
     email = request.form.get('email')
     password = request.form.get('password')
 
+    # If none of the fields are empty generate a hashed password.
     if username and email and password:
       hashed_pw = generate_password_hash(password, method='scrypt')
 
+      # After hashing password add the user to the database and commit the session.
       new_user = User(username=username, email=email, password_hash=hashed_pw)
       db.session.add(new_user)
       db.session.commit()
       
+      # After adding the user redirect them back to sign up.
       return redirect(url_for('main.sign_up'))
   
+  # This query takes all the user data in the db and passes it to template for display.
   users = User.query.all()
   return render_template('sign-up.html', users=users)
 
