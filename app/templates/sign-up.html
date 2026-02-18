@@ -1,1 +1,14 @@
 <h1>Sign-up</h1>
+
+<form method="POST">
+  <input type="text" name="username" placeholder="Enter Username..." required>
+  <input type="password" name="password" placeholder="Enter Password..." required>
+  <input type="email" name="email" placeholder="Enter Email..." required>
+  <button type="submit">Sign Up</button>
+</form>
+
+<ul>
+  {% for user in users %}
+    <li>ID: {{ user.id }} | Name: {{ user.username }} | Email: {{ user.email }} | Hash: {{ user.password_hash }}</li>
+  {% endfor %}
+</ul>
