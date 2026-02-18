@@ -1,12 +1,14 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/sign-up.css')}}">
 
+<a href="{{ url_for('main.index') }}" class="return-link">Back to Home</a>
+
 <div class="form-container">
   <div class="form-elements">
     <h1>Sign-up</h1>
     <form method="POST" class="form">
-      <input type="text" name="username" placeholder="Enter Username..." required>
-      <input type="password" name="password" placeholder="Enter Password..." required>
-      <input type="email" name="email" placeholder="Enter Email..." required>
+      <input type="text" name="username" placeholder="Username" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <input type="email" name="email" placeholder="Email" required>
       <button type="submit">Sign Up</button>
     </form>
   </div

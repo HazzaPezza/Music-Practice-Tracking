@@ -28,8 +28,6 @@ def sign_up():
     email = request.form.get('email')
     password = request.form.get('password')
 
-    print("Username: {}, Email: {}, Password: {}".format(username, email, password))
-
     if username and email and password:
       hashed_pw = generate_password_hash(password, method='scrypt')
 
