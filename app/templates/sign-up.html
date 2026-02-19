@@ -1,5 +1,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/sign-up.css')}}">
 
+<div class="pixel-space"></div>
+
 <a href="{{ url_for('main.index') }}" class="return-link">Back to Home</a>
 
 <div class="form-container">
@@ -11,5 +13,16 @@
       <input type="email" name="email" placeholder="Email" required>
       <button type="submit">Sign Up</button>
     </form>
+
+    {# This block catches the flash() calls from your route #}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="form-feedback">
+          {% for category, message in messages %}
+            <p class="msg-{{ category }}">{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
   </div
 </div>
