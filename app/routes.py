@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from werkzeug.security import generate_password_hash
 from app import db
 from app.models.track import User
@@ -21,28 +21,43 @@ def index():
 # Going to start with sign up and post operations to DB.
 @main_bp.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
+    if request.method == 'POST':
+        # 1. Extract and Clean Data
+        username = request.form.get('username', '').strip()
+        email    = request.form.get('email', '').strip().lower()
+        password = request.form.get('password')
 
-  # If the method is POST (Form submitted) collect form information.
-  if request.method == 'POST':
-    username = request.form.get('username')
-    email = request.form.get('email')
-    password = request.form.get('password')
+        # 2. Validations (Guard Clauses)
+        if not (5 <= len(username) <= 20):
+            flash('Username must be between 5 and 20 characters.', 'danger')
+            return redirect(url_for('main.sign_up'))
 
-    # If none of the fields are empty generate a hashed password.
-    if username and email and password:
-      hashed_pw = generate_password_hash(password, method='scrypt')
+        if User.query.filter_by(username=username).first():
+            flash('Username already exists.', 'danger')
+            return redirect(url_for('main.sign_up'))
+        
+        if User.query.filter_by(email=email).first():
+            flash('Email already registered.', 'danger')
+            return redirect(url_for('main.sign_up'))
 
-      # After hashing password add the user to the database and commit the session.
-      new_user = User(username=username, email=email, password_hash=hashed_pw)
-      db.session.add(new_user)
-      db.session.commit()
-      
-      # After adding the user redirect them back to sign up.
-      return redirect(url_for('main.sign_up'))
-  
-  # This query takes all the user data in the db and passes it to template for display.
-  users = User.query.all()
-  return render_template('sign-up.html', users=users)
+        # 3. Database Operation
+        if username and email and password:
+            hashed_pw = generate_password_hash(password, method='scrypt')
+            new_user = User(username=username, email=email, password_hash=hashed_pw)
+            
+            try:
+                db.session.add(new_user)
+                db.session.commit()
+                flash('User created successfully!', 'success')
+                return redirect(url_for('main.sign_up'))
+            except Exception as e:
+                db.session.rollback()
+                flash(f'Error creating user: {e}', 'danger')
+                return redirect(url_for('main.sign_up'))
+
+    # 4. GET Request: Display User List
+    users = User.query.all()
+    return render_template('sign-up.html', users=users)
 
 
 # ----- Login Routes and API Endpoints -----
