@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 import os
 from dotenv import load_dotenv
 
@@ -27,4 +28,4 @@ def create_app():
 # Instantiate flask app from environment variable.
 app = create_app()
 
-  
+migrate = Migrate(app, db)

@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from werkzeug.security import generate_password_hash
 from app import db
 from app.models.track import User
+import regex
 main_bp = Blueprint('main', __name__)
 
 # ----- Index Routes and API Endpoints -----
@@ -14,7 +15,7 @@ def index():
 
   :return: Returns render_template response which renders index.html
   """
-  return render_template('index.html')
+  return render_template('index.html') 
 
 
 # ----- Sign-up Routes and API Endpoints -----
@@ -28,16 +29,29 @@ def sign_up():
         password = request.form.get('password')
 
         # 2. Validations (Guard Clauses)
+        # Username Length Check
         if not (5 <= len(username) <= 20):
             flash('Username must be between 5 and 20 characters.', 'danger')
             return redirect(url_for('main.sign_up'))
 
+        # Check if Username or email already exists in db
         if User.query.filter_by(username=username).first():
             flash('Username already exists.', 'danger')
             return redirect(url_for('main.sign_up'))
         
         if User.query.filter_by(email=email).first():
             flash('Email already registered.', 'danger')
+            return redirect(url_for('main.sign_up'))
+        
+        # Check password length.
+        if len(password) < 8:
+            flash('Password must be at least 8 characters long.', 'danger')
+            return redirect(url_for('main.sign_up'))
+        
+        # Check password has at least one uppercase letter and one digit.
+        pattern = r"^(?=.*[A-Z])(?=.*\d).+$"
+        if not regex.match(pattern, password):
+            flash('Password must contain at least one uppercase letter and one digit.', 'danger')
             return redirect(url_for('main.sign_up'))
 
         # 3. Database Operation
