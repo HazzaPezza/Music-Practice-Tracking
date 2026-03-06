@@ -82,6 +82,17 @@ body {
   font-size: clamp(14px, 1.5vw, 18px);
 }
 
-.is-invalid {
-  border-color: red;
+/* The class applied to the input box when it fails */
+.input-error {
+    border: 2px solid #ff4d4d !important;
+    background-color: #fff0f0;
+}
+
+/* The style for the text appearing below the input */
+.error-text {
+    color: #ff4d4d;
+    font-size: 12px;
+    margin-bottom: 10px;
+    display: block;
+    text-align: left;
 }
