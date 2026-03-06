@@ -1,56 +1,101 @@
-* {
-  font-family: sans-serif;
+/* Layout Reset */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #ffffff;
+    color: #000000;
 }
 
-body {
-  margin: 0;
-}
-
+/* Center everything on the screen */
 .central-content-container {
-  display: flex;
-  width: 100%;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-} 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    padding: 0 20px;
+}
 
+/* Main Content Box */
 .main-page-items {
-  display: flex;
-  flex-direction: column;
-  background-color: white;
+    max-width: 600px;
+    padding: 3rem;
+    border: 3px solid #000;
+    box-shadow: 12px 12px 0px 0px #000; /* Matching the sign-up form shadow */
+    background-color: #fff;
 }
 
-.nav-buttons {
-  display: flex;
-  justify-content: center;
-  gap: clamp(20px, 30px, 50px)
-}
-
-.main-nav-button {
-  border: 1px solid black;
-  background-color: white;
-  padding: clamp(1rem, 2vw, 3rem) clamp(3rem, 5vw, 6rem);
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: ease-in-out, 0.2s;
-}
-
-.main-nav-button:hover {
-  background-color: black;
-  color: white;
-}
-
+/* Header Styling */
 .central-header {
-  font-size: clamp(3rem, 6vw, 6rem);
-  margin: 0;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 1rem;
+    border-bottom: 3px solid #000;
+    display: inline-block;
+    padding-bottom: 10px;
 }
 
+/* Description Text */
 .central-description {
-  font-size: clamp(0.8rem, 3vw, 2rem);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    color: #333;
+}
+
+/* Navigation Buttons Container */
+.nav-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap; /* Wraps buttons on small screens */
+}
+
+/* Button Styling */
+.main-nav-button {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #000;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 140px;
+}
+
+/* Hover Effect: Invert colors */
+.main-nav-button:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+/* Link Reset */
+.nav-buttons调节 a {
+    text-decoration: none;
+}
+
+/* Responsive Tweaks */
+@media (max-width: 600px) {
+    .central-header {
+        font-size: 1.8rem;
+    }
+    
+    .main-page-items {
+        padding: 2rem 1rem;
+        box-shadow: 8px 8px 0px 0px #000;
+    }
+
+    .nav-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .main-nav-button {
+        width: 100%;
+    }
 }

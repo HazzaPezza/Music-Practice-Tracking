@@ -1,98 +1,127 @@
-* {
-  font-family: sans-serif;
-}
-
-.pixel-space {
-  width: 100%;
-  height: 5vh;
-}
-
+/* General Reset & Layout */
 body {
-  margin: 0;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #ffffff;
+    color: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
+/* Container for centering */
+.form-container {
+    width: 90%;
+    max-width: 400px;
+    padding: 2rem;
+    border: 2px solid #000;
+    background: #fff;
+    box-shadow: 8px 8px 0px 0px #000; /* Retro shadow effect */
+}
+
+/* Header */
+.form-elements h1 {
+    margin-top: 0;
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 2px solid #000;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Back Link Styling */
 .return-link {
-  text-decoration: none;
-  color: black;
-  font-weight: bold;
-  padding: 10px 20px;
-  border-radius: 5px;
-  transition: ease-in-out 0.1s;
-  margin-left: 5vw;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
 }
 
 .return-link:hover {
-  background-color: #333;
-  color: white;
+    text-decoration: underline;
 }
 
-.form-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  margin-top: 5vh;
-  padding: 20px;
-  text-align: center;
-}
-
-.form-elements {
-  border: 2px solid black;
-  width: clamp(300px, 30vw, 50vw);
-  height: clamp(450px, 50vh, 70vh);
-  border-radius: 10px;
-  font-size: 28px;
-}
-
+/* Form Inputs */
 .form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
-.form input {
-  width: clamp(200px, 20vw, 30vw);
-  height: 60px;
-  padding: 10px;
-  text-align: left;
-  border: none;
-  border-bottom: 1px solid black;
-}
-
-.form button {
-  padding: 10px 20px;
-  font-size: clamp(16px, 2vw, 20px);
-  background-color: black;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.form button:hover {
-  background-color: #333;
-} 
-
-.form-feedback {
-  color: red;
-  font-size: clamp(14px, 1.5vw, 18px);
-}
-
-/* The class applied to the input box when it fails */
-.input-error {
-    border: 2px solid #ff4d4d !important;
-    background-color: #fff0f0;
-}
-
-/* The style for the text appearing below the input */
-.error-text {
-    color: #ff4d4d;
-    font-size: 12px;
+input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
     margin-bottom: 10px;
-    display: block;
-    text-align: left;
+    border: 1px solid #000;
+    box-sizing: border-box; /* Crucial for responsiveness */
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+input:focus {
+    outline: none;
+    border: 2px solid #000;
+    background-color: #f9f9f9;
+}
+
+/* Error States */
+.input-error {
+    border: 2px solid #d00000 !important; /* Bold Red */
+    background-color: #fff8f8;
+}
+
+.error-text {
+    color: #d00000;
+    font-size: 0.8rem;
+    margin-top: -8px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+/* Button Styling */
+button[type="submit"] {
+    margin-top: 15px;
+    padding: 12px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: opacity 0.2s;
+}
+
+button[type="submit"]:hover {
+    opacity: 0.8;
+}
+
+/* Flash Messages & Feedback */
+.form-feedback {
+    margin-top: 20px;
+    padding: 10px;
+    text-align: center;
+}
+
+.msg-success {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.msg-danger {
+    color: #d00000;
+    font-weight: bold;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 480px) {
+    .form-container {
+        padding: 1.5rem;
+        box-shadow: 4px 4px 0px 0px #000;
+    }
 }

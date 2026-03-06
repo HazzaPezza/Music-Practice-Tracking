@@ -1,12 +1,20 @@
-<h1>Login</h1>
-<form method="post" action="{{ url_for('main.login') }}">
-  <div>
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css')}}">
+
+<body>
+  <div class="form_container">
+    <div class="form_elements">
+      <h1>Login</h1>
+      <form method="post">
+        <div>
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required>
+        </div>
+        <div>
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <button class="submit-button" type="submit">Login</button>
+      </form>
+    </div>
   </div>
-  <div>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required>
-  </div>
-  <button type="submit">Login</button>
-</form>
+</body>
