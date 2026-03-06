@@ -52,6 +52,6 @@ def sign_up():
 
 # ----- Login Routes and API Endpoints -----
 # Second gonna do login so that I know what I'm doing with that.
-@main_bp.route('/login')
+@main_bp.route('/login', methods = ['GET', 'POST'])
 def login():
   return render_template('login.html')

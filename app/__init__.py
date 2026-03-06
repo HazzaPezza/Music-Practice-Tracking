@@ -26,3 +26,6 @@ def create_app():
 
 # Instantiate flask app from environment variable.
 app = create_app()
+
+with app.app_context():
+  print(app.url_map)
