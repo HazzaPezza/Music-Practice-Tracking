@@ -68,10 +68,20 @@ body, html {
     min-width: 140px;
 }
 
+.login {
+    background-color: rgb(210, 16, 16);
+    color: white;
+}
+
 /* Hover Effect: Invert colors */
 .main-nav-button:hover {
     background-color: #fff;
     color: #000;
+}
+
+.login:hover {
+    background-color: white;
+    color: rgb(255, 0, 0);
 }
 
 /* Link Reset */

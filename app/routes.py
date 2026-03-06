@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask_login import login_user, logout_user, login_required, current_user
 from app.forms import SignUpForm
 from werkzeug.security import generate_password_hash
 from app import db
-from app.models.track import User
+from app.models.track import User, LoginForm
 
 main_bp = Blueprint('main', __name__)
 
@@ -52,6 +53,33 @@ def sign_up():
 
 # ----- Login Routes and API Endpoints -----
 # Second gonna do login so that I know what I'm doing with that.
-@main_bp.route('/login', methods = ['GET', 'POST'])
+@main_bp.route('/login', methods=['GET', 'POST'])
 def login():
-  return render_template('login.html')
+    if current_user.is_authenticated:
+        return redirect(url_for('profile'))
+        
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        
+        # Check if user exists and password matches
+        if user and user.check_password(form.password.data):
+            # This function creates the session for the user
+            login_user(user, remember=form.remember_me.data)
+            
+            flash('Logged in successfully!', 'success')
+            return redirect(url_for('profile'))
+        else:
+            flash('Login Unsuccessful. Please check email and password', 'danger')
+            
+    return render_template('login.html', form=form)
+
+@main_bp.route('/profile')
+@login_required
+def profile():
+    return render_template('profile.html', user=current_user)
+
+@main_bp.route('/logout')
+def logout():
+    logout_user() # Clears the session
+    return redirect(url_for('login'))

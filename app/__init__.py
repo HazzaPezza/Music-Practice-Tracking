@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 import os
 from dotenv import load_dotenv
 
@@ -26,6 +27,15 @@ def create_app():
 
 # Instantiate flask app from environment variable.
 app = create_app()
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'main.login'
+
+@login_manager.user_loader
+def load_user(user_id):
+  from .models import User
+  return User.query.get(int(user_id))
 
 with app.app_context():
   print(app.url_map)
