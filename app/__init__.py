@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 db = SQLAlchemy()
+migrate = Migrate()
 
 def create_app():
   app = Flask(__name__)
@@ -15,17 +16,13 @@ def create_app():
   app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
   db.init_app(app)
+  migrate.init_app(app, db)
 
   with app.app_context():
     from .routes import main_bp
     app.register_blueprint(main_bp)
 
-    from app.models.track import User
-    db.create_all()
-
   return app
 
 # Instantiate flask app from environment variable.
 app = create_app()
-
-migrate = Migrate(app, db)

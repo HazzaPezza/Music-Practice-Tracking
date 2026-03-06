@@ -81,3 +81,7 @@ body {
   color: red;
   font-size: clamp(14px, 1.5vw, 18px);
 }
+
+.is-invalid {
+  border-color: red;
+}
