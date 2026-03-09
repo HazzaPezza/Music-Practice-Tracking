@@ -1,44 +1,80 @@
-/* Layout Reset */
+/* Layout Reset & Background */
+* {
+    box-sizing: border-box;
+}
+
 body, html {
     margin: 0;
     padding: 0;
-    height: 100%;
+    /* RESTORED: Your original font stack */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #ffffff;
-    color: #000000;
+    background-color: #f3f3f3; 
+    color: #000;
+    height: 100%;
 }
 
-/* Center everything on the screen */
-.central-content-container {
+/* Background Grid Fix */
+.background-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; 
+    background-image: 
+        linear-gradient(#d1d1d1 1px, transparent 1px),
+        linear-gradient(90deg, #d1d1d1 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none; 
+}
+
+.page-wrapper {
+    position: relative;
+    z-index: 1; 
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* --- ANIMATIONS --- */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+    100% { transform: translateY(0px); }
+}
+
+.float-main { animation: float 6s ease-in-out infinite; }
+.float-1 { animation: float 5s ease-in-out infinite; }
+.float-2 { animation: float 7s ease-in-out infinite; }
+.float-3 { animation: float 5.5s ease-in-out infinite; }
+
+/* --- HERO SECTION --- */
+.hero-section {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
-    text-align: center;
-    padding: 0 20px;
+    padding: 60px 0;
 }
 
-/* Main Content Box */
 .main-page-items {
-    max-width: 600px;
-    padding: 3rem;
+    max-width: 700px;
+    padding: 3.5rem;
     border: 3px solid #000;
-    box-shadow: 12px 12px 0px 0px #000; /* Matching the sign-up form shadow */
+    box-shadow: 12px 12px 0px 0px #000;
     background-color: #fff;
+    text-align: center;
 }
 
-/* Header Styling */
 .central-header {
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: bold;
     text-transform: uppercase;
-    letter-spacing: 3px;
-    margin-bottom: 1rem;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
     border-bottom: 3px solid #000;
     display: inline-block;
     padding-bottom: 10px;
 }
 
-/* Description Text */
 .central-description {
     font-size: 1.1rem;
     line-height: 1.6;
@@ -46,15 +82,56 @@ body, html {
     color: #333;
 }
 
-/* Navigation Buttons Container */
+/* --- FEATURES GRID --- */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin-top: 40px;
+    padding-bottom: 80px;
+}
+
+.feature-card {
+    padding: 2.5rem;
+    border: 3px solid #000;
+    background-color: #fff;
+    box-shadow: 10px 10px 0px 0px #000;
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover, .main-page-items:hover {
+    animation-play-state: paused;
+    box-shadow: 15px 15px 0px 0px #000;
+    transform: scale(1.02);
+}
+
+.feature-card h3 {
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #000;
+    display: inline-block;
+}
+
+.feature-card p {
+    font-size: 1rem;
+    color: #111;
+}
+
+/* Post-it Note Colors */
+.tracker { background-color: #A3E635; } 
+.social { background-color: #60A5FA; } 
+.notes { background-color: #FACC15; }
+
+/* --- BUTTONS --- */
 .nav-buttons {
     display: flex;
     gap: 20px;
     justify-content: center;
-    flex-wrap: wrap; /* Wraps buttons on small screens */
 }
 
-/* Button Styling */
 .main-nav-button {
     background-color: #000;
     color: #fff;
@@ -64,8 +141,14 @@ body, html {
     font-weight: bold;
     text-transform: uppercase;
     cursor: pointer;
+    box-shadow: 6px 6px 0px 0px #000; 
     transition: all 0.2s ease;
     min-width: 140px;
+}
+
+.main-nav-button:hover {
+    background-color: #fff;
+    color: #000;
 }
 
 .login {
@@ -73,39 +156,25 @@ body, html {
     color: white;
 }
 
-/* Hover Effect: Invert colors */
-.main-nav-button:hover {
-    background-color: #fff;
-    color: #000;
-}
-
 .login:hover {
     background-color: white;
-    color: rgb(255, 0, 0);
+    color: rgb(210, 16, 16);
 }
 
-/* Link Reset */
-.nav-buttons调节 a {
-    text-decoration: none;
+.main-nav-button:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0px 0px #000;
 }
 
-/* Responsive Tweaks */
+.mini-footer {
+    text-align: center;
+    padding: 60px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Mobile Tweaks */
 @media (max-width: 600px) {
-    .central-header {
-        font-size: 1.8rem;
-    }
-    
-    .main-page-items {
-        padding: 2rem 1rem;
-        box-shadow: 8px 8px 0px 0px #000;
-    }
-
-    .nav-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .main-nav-button {
-        width: 100%;
-    }
+    .nav-buttons { flex-direction: column; gap: 15px; }
+    .float-main, .float-1, .float-2, .float-3 { animation: none; }
 }

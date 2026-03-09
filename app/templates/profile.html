@@ -5,45 +5,60 @@
 {% endblock %}
 
 {% block content %}
+<div class="background-grid"></div>
+
 <div class="profile-container">
     <div class="profile-header card">
-        <div class="header-text">
-            <h1>{{ user.username }}</h1>
-            <p class="instrument-tag">{{ user.instrument|default('Multi-instrumentalist') }}</p>
+        <div class="header-left">
+            <div class="profile-photo">
+                <img src="{{ user.profile_pic_url|default(url_for('static', filename='images/generic_avatar.png')) }}" alt="Profile Picture">
+            </div>
+            <div class="header-text">
+                <h1>{{ user.username }}</h1>
+                <span class="instrument-tag">{{ user.instrument|default('Multi-instrumentalist') }}</span>
+            </div>
         </div>
-        <div class="profile-photo">
-            <img src="{{ user.profile_pic_url|default('https://via.placeholder.com/80x80') }}" alt="Profile Picture">
-        </div>
+    </div>
+
+    <div class="action-bar">
+        <a href="{{ url_for('main.index') }}" class="btn secondary-btn">Home</a>
+        <a href="#" class="btn secondary-btn">Edit Profile</a>
+        <a href="{{ url_for('main.logout') }}" class="btn logout-btn">Logout</a>
     </div>
 
     <div class="bio-section card">
-        <label>Biography</label>
-        <p>{{ user.bio|default('No bio yet. Start writing your musical journey...') }}</p>
+        <div class="block-header">
+            <h2>Biography</h2>
+        </div>
+        <p class="bio-text">{{ user.bio|default('No bio yet. Start writing your musical journey...') }}</p>
     </div>
 
     <div class="profile-grid">
-        <div class="data-block card">
+        <div class="data-block card sessions-accent">
             <div class="block-header">
                 <h2>Sessions</h2>
                 <a href="{{ url_for('main.add_session') }}" class="add-btn">+</a>
             </div>
             <ul class="data-list">
                 {% for session in sessions %}
-                    <li>{{ session.date }} - {{ session.title }}</li>
+                    <li>
+                        <span class="session-date">{{ session.date }}</span>
+                        <span class="session-title">{{ session.title }}</span>
+                    </li>
                 {% else %}
                     <li class="empty-msg">No sessions recorded.</li>
                 {% endfor %}
             </ul>
         </div>
 
-        <div class="data-block card">
+        <div class="data-block card notes-accent">
             <div class="block-header">
                 <h2>Notes</h2>
                 <a href="{{ url_for('main.add_note') }}" class="add-btn">+</a>
             </div>
             <ul class="data-list">
                 {% for note in notes %}
-                    <li>{{ note.content|truncate(40) }}</li>
+                    <li>{{ note.content|truncate(60) }}</li>
                 {% else %}
                     <li class="empty-msg">No notes yet.</li>
                 {% endfor %}

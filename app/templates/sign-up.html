@@ -1,47 +1,57 @@
-<link rel="stylesheet" href="{{ url_for('static', filename='css/sign-up.css')}}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | Practice Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sign-up.css')}}">
+</head>
+<body>
+    <div class="background-grid"></div>
 
-<div class="pixel-space"></div>
+    <a href="{{ url_for('main.index') }}" class="return-link">← Back to Home</a>
 
-<a href="{{ url_for('main.index') }}" class="return-link">Back to Home</a>
+    <main class="page-wrapper">
+        <div class="form-container float-main">
+            <div class="form-elements">
+                <h1>Sign-up</h1>
+                <form method="POST" class="form">
+                    {{ form.hidden_tag() }}
 
-<div class="form-container">
-  <div class="form-elements">
-    <h1>Sign-up</h1>
-    <form method="POST" class="form">
-      {{ form.hidden_tag() }}
+                    <input type="text" name="username" placeholder="Username" 
+                        class="{{ 'input-error' if form.username.errors }}" 
+                        value="{{ form.username.data or '' }}">
+                    {% for error in form.username.errors %}
+                        <span class="error-text">{{ error }}</span>
+                    {% endfor %}
 
-      <input type="text" name="username" placeholder="Username" 
-            class="{{ 'input-error' if form.username.errors }}" 
-            value="{{ form.username.data or '' }}">
-      {% for error in form.username.errors %}
-          <span class="error-text">{{ error }}</span>
-      {% endfor %}
+                    <input type="email" name="email" placeholder="Email" 
+                        class="{{ 'input-error' if form.email.errors }}"
+                        value="{{ form.email.data or '' }}">
+                    {% for error in form.email.errors %}
+                        <span class="error-text">{{ error }}</span>
+                    {% endfor %}
 
-      <input type="email" name="email" placeholder="Email" 
-            class="{{ 'input-error' if form.email.errors }}"
-            value="{{ form.email.data or '' }}">
-      {% for error in form.email.errors %}
-          <span class="error-text">{{ error }}</span>
-      {% endfor %}
+                    <input type="password" name="password" placeholder="Password" 
+                        class="{{ 'input-error' if form.password.errors }}">
+                    {% for error in form.password.errors %}
+                        <span class="error-text">{{ error }}</span>
+                    {% endfor %}
 
-      <input type="password" name="password" placeholder="Password" 
-            class="{{ 'input-error' if form.password.errors }}">
-      {% for error in form.password.errors %}
-          <span class="error-text">{{ error }}</span>
-      {% endfor %}
-
-      <button type="submit">Sign Up</button>
-    </form>
-    
-    {# This block catches the flash() calls from your route #}
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <div class="form-feedback">
-          {% for category, message in messages %}
-            <p class="msg-{{ category }}">{{ message }}</p>
-          {% endfor %}
+                    <button type="submit" class="submit-btn">Create Account</button>
+                </form>
+                
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                  {% if messages %}
+                    <div class="form-feedback">
+                      {% for category, message in messages %}
+                        <p class="msg-{{ category }}">{{ message }}</p>
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                {% endwith %}
+            </div>
         </div>
-      {% endif %}
-    {% endwith %}
-  </div>
-</div>
+    </main>
+</body>
+</html>

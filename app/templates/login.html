@@ -1,27 +1,40 @@
-<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css')}}">
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Practice Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css')}}">
+</head>
 <body>
-  <div class="form_container">
-    <div class="form_elements">
-      <h1>Login</h1>
-        <form method="POST">
-          {# This hidden field is MANDATORY for Flask-WTF security #}
-          {{ form.hidden_tag() }}
+    <div class="background-grid"></div>
 
-          <div>
-              {{ form.username.label }}
-              {{ form.username(id="username") }} 
-          </div>
-          <div>
-              {{ form.password.label }}
-              {{ form.password(id="password") }}
-          </div>
-          <div>
-              {{ form.remember_me() }} {{ form.remember_me.label }}
-          </div>
-          
-          <button class="submit-button" type="submit">Login</button>
-      </form>
-    </div>
-  </div>
+    <a href="{{ url_for('main.index') }}" class="return-link">← Home</a>
+
+    <main class="page-wrapper">
+        <div class="form_container float-main">
+            <div class="form_elements">
+                <h1>Login</h1>
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+
+                    <div class="input-group">
+                        {{ form.username.label }}
+                        {{ form.username(id="username", placeholder="Username") }} 
+                    </div>
+                    <div class="input-group">
+                        {{ form.password.label }}
+                        {{ form.password(id="password", placeholder="Password") }}
+                    </div>
+                    <div class="remember-me-container">
+                        {{ form.remember_me() }} 
+                        {{ form.remember_me.label }}
+                    </div>
+                    
+                    <button class="submit-button" type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+    </main>
 </body>
+</html>

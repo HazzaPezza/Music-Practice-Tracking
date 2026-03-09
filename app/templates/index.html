@@ -1,19 +1,48 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Practice Tracker</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}">
-  </head>
-  <body> <div class="central-content-container">
-      <div class="main-page-items">
-        <h1 class="central-header">Music Practice Tracking</h1>
-        <p class="central-description">A space to track and record your music practice session and notes.</p>
-        <div class="nav-buttons">
-          <a href="{{ url_for('main.sign_up') }}"><button class="main-nav-button">Sign-Up</button></a>
-          <a href="{{ url_for('main.login') }}"><button class="main-nav-button login">Login</button></a>
-        </div>
-      </div>
-    </div> <script src="" async defer></script>
-  </body>
+</head>
+<body>
+    <div class="background-grid"></div>
+
+    <main class="page-wrapper">
+        <section class="hero-section">
+            <div class="main-page-items float-main">
+                <h1 class="central-header">Master Your Instrument</h1>
+                <p class="central-description">A bold space to track sessions, share progress, and hit your musical goals.</p>
+                <div class="nav-buttons">
+                    <a href="{{ url_for('main.sign_up') }}" class="nav-link">
+                        <button class="main-nav-button">Get Started</button>
+                    </a>
+                    <a href="{{ url_for('main.login') }}" class="nav-link">
+                        <button class="main-nav-button login">Login</button>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="features-grid">
+            <div class="feature-card tracker float-1">
+                <h3>Track Sessions</h3>
+                <p>Log your hours and visualize your progress with a high-performance dashboard.</p>
+            </div>
+            <div class="feature-card social float-2">
+                <h3>Connect & Learn</h3>
+                <p>Post updates, get advice, and join a community of musicians just like you.</p>
+            </div>
+            <div class="feature-card notes float-3">
+                <h3>Smart Notes</h3>
+                <p>Keep your sheet music notes and practice reminders in one organized place.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="mini-footer">
+        <p>&copy; 2026 Music Practice Tracker. Stay Loud.</p>
+    </footer>
+</body>
 </html>

@@ -74,16 +74,19 @@ def login():
             
     return render_template('login.html', form=form)
 
+# ----- Profile and Logout Routes and API Endpoints -----
 @main_bp.route('/profile')
 @login_required
 def profile():
     return render_template('profile.html', user=current_user)
 
+# This is a logout route that will clear the session and log the user out.
 @main_bp.route('/logout')
 def logout():
     logout_user() # Clears the session
-    return redirect(url_for('login'))
+    return redirect(url_for('main.login'))
 
+# ----- Practice Session and Note Routes and API Endpoints -----
 @main_bp.route('/add_session')
 @login_required
 def add_session():
