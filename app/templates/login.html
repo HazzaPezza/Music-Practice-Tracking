@@ -4,16 +4,23 @@
   <div class="form_container">
     <div class="form_elements">
       <h1>Login</h1>
-      <form method="post">
-        <div>
-          <label for="username">Username:</label>
-          <input type="text" id="username" name="username" required>
-        </div>
-        <div>
-          <label for="password">Password:</label>
-          <input type="password" id="password" name="password" required>
-        </div>
-        <button class="submit-button" type="submit">Login</button>
+        <form method="POST">
+          {# This hidden field is MANDATORY for Flask-WTF security #}
+          {{ form.hidden_tag() }}
+
+          <div>
+              {{ form.username.label }}
+              {{ form.username(id="username") }} 
+          </div>
+          <div>
+              {{ form.password.label }}
+              {{ form.password(id="password") }}
+          </div>
+          <div>
+              {{ form.remember_me() }} {{ form.remember_me.label }}
+          </div>
+          
+          <button class="submit-button" type="submit">Login</button>
       </form>
     </div>
   </div>

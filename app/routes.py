@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
-from app.forms import SignUpForm
+from app.forms import SignUpForm, LoginForm
 from werkzeug.security import generate_password_hash
 from app import db
-from app.models.track import User, LoginForm
+from app.models.track import User
 
 main_bp = Blueprint('main', __name__)
 
@@ -56,21 +56,21 @@ def sign_up():
 @main_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('profile'))
+        print("Debug: User already authenticated") # DEBUG
+        return redirect(url_for('main.profile'))
         
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
+        user = User.query.filter_by(username=form.username.data).first()
+        print(f"Debug: User found: {user}") # DEBUG
         
-        # Check if user exists and password matches
         if user and user.check_password(form.password.data):
-            # This function creates the session for the user
+            print("Debug: Password check passed") # DEBUG
             login_user(user, remember=form.remember_me.data)
-            
-            flash('Logged in successfully!', 'success')
-            return redirect(url_for('profile'))
+            return redirect(url_for('main.profile'))
         else:
-            flash('Login Unsuccessful. Please check email and password', 'danger')
+            print("Debug: Password check failed") # DEBUG
+            flash('Login Unsuccessful...', 'danger')
             
     return render_template('login.html', form=form)
 
@@ -83,3 +83,13 @@ def profile():
 def logout():
     logout_user() # Clears the session
     return redirect(url_for('login'))
+
+@main_bp.route('/add_session')
+@login_required
+def add_session():
+    return render_template('add_session.html')
+
+@main_bp.route('/add_note')
+@login_required
+def add_note():
+    return render_template('add_note.html')
