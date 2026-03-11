@@ -1,4 +1,6 @@
-/* 1. Global Reset & Safari Grid Fix */
+/* =========================================
+   1. GLOBAL RESET & SAFARI COMPATIBILITY
+   ========================================= */
 * {
     box-sizing: border-box;
 }
@@ -7,7 +9,7 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: transparent; /* Allows background-grid to show */
+    background-color: transparent;
     min-height: 100vh;
 }
 
@@ -24,15 +26,19 @@ body, html {
         linear-gradient(90deg, #d1d1d1 1px, transparent 1px);
     background-size: 40px 40px;
     -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    pointer-events: none;
 }
 
 .profile-container {
-    max-width: 1100px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 60px 20px;
 }
 
-/* 2. Card Architecture */
+/* =========================================
+   2. REUSABLE NEO-BRUTALIST COMPONENTS
+   ========================================= */
 .card {
     background: #fff;
     border: 4px solid #000;
@@ -41,7 +47,41 @@ body, html {
     margin-bottom: 40px;
 }
 
-/* 3. Header Styling */
+.action-bar {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 10px 22px;
+    border: 3px solid #000;
+    box-shadow: 5px 5px 0px 0px #000;
+    text-decoration: none;
+    font-weight: 900;
+    text-transform: uppercase;
+    transition: all 0.1s;
+    background: #fff;
+    color: #000;
+    font-size: 0.85rem;
+}
+
+.btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0px 0px #000;
+}
+
+.btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: 0px 0px 0px 0px #000;
+}
+
+.logout-btn { background-color: #ff4d4d; color: #fff; }
+
+/* =========================================
+   3. HEADER & BIOGRAPHY
+   ========================================= */
 .profile-header {
     display: flex;
     align-items: center;
@@ -54,16 +94,16 @@ body, html {
 }
 
 .profile-photo img {
-    width: 140px;
-    height: 140px;
+    width: 130px;
+    height: 130px;
     border: 4px solid #000;
-    display: block;
+    object-fit: cover;
     background: #fff;
 }
 
 .header-text h1 {
     margin: 0;
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-size: clamp(2rem, 5vw, 3rem);
     text-transform: uppercase;
     line-height: 0.9;
     margin-bottom: 10px;
@@ -71,53 +111,24 @@ body, html {
 
 .instrument-tag {
     display: inline-block;
-    background: #A3E635; /* Neon Green */
+    background: #A3E635;
     color: #000;
-    padding: 6px 15px;
+    padding: 5px 12px;
     font-weight: 900;
     text-transform: uppercase;
     border: 3px solid #000;
     box-shadow: 4px 4px 0px 0px #000;
 }
 
-/* 4. Action Bar Buttons */
-.action-bar {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 40px;
+.bio-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #222;
 }
 
-.btn {
-    padding: 12px 25px;
-    border: 3px solid #000;
-    box-shadow: 6px 6px 0px 0px #000;
-    text-decoration: none;
-    font-weight: 900;
-    text-transform: uppercase;
-    transition: all 0.1s;
-    background: #fff;
-    color: #000;
-}
-
-.btn:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 8px 8px 0px 0px #000;
-}
-
-.btn:active {
-    transform: translate(4px, 4px);
-    box-shadow: 0px 0px 0px 0px #000;
-}
-
-.logout-btn { background-color: #ff4d4d; color: #fff; }
-
-/* 5. Content Grid */
-.profile-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-}
-
+/* =========================================
+   4. FULL-WIDTH SESSION LOG
+   ========================================= */
 .block-header {
     display: flex;
     justify-content: space-between;
@@ -133,47 +144,20 @@ body, html {
     font-size: 1.8rem;
 }
 
-/* Accent Colors for the Sections */
-.sessions-accent { background-color: #fff; }
-.notes-accent { background-color: #fff; }
-
-/* Data Lists */
-.data-list {
-    list-style: none;
-    padding: 0;
-}
-
-.data-list li {
-    padding: 15px;
-    margin-bottom: 15px;
-    border: 3px solid #000;
-    background: #fff;
-    box-shadow: 6px 6px 0px 0px #000;
-    font-weight: bold;
-    display: flex;
-    justify-content: space-between;
-}
-
-.empty-msg {
-    opacity: 0.5;
-    border-style: dashed !important;
-    box-shadow: none !important;
-}
-
-/* Plus Button */
 .add-btn {
     text-decoration: none;
-    background: #FACC15; /* Yellow */
-    color: #000;
-    width: 40px;
-    height: 40px;
+    background: #ff4d4d;
+    color: #fff;
+    width: 45px;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 900;
-    font-size: 1.5rem;
-    border: 3px solid #000;
+    font-size: 1.8rem;
+    border: 4px solid #000;
     box-shadow: 4px 4px 0px 0px #000;
+    transition: all 0.1s;
 }
 
 .add-btn:hover {
@@ -181,10 +165,64 @@ body, html {
     box-shadow: 6px 6px 0px 0px #000;
 }
 
-/* Responsive */
-@media (max-width: 850px) {
-    .profile-grid { grid-template-columns: 1fr; }
-    .profile-header { flex-direction: column; text-align: center; }
-    .header-left { flex-direction: column; }
-    .action-bar { justify-content: center; }
+.data-list {
+    list-style: none;
+    padding: 0;
+}
+
+.list-item {
+    padding: 20px;
+    margin-bottom: 25px;
+    border: 3px solid #000;
+    background: #fff;
+    box-shadow: 8px 8px 0px 0px #000;
+}
+
+.item-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 5px;
+}
+
+.item-title {
+    font-weight: 800;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+
+.item-date {
+    font-weight: 900;
+    font-size: 0.85rem;
+    color: #666;
+    text-transform: uppercase;
+}
+
+.session-notes-preview {
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.4;
+    background: #fdfdfd;
+    padding: 10px;
+    border-left: 4px solid #A3E635; /* Neon green accent for notes */
+}
+
+.empty-msg {
+    padding: 30px;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    opacity: 0.5;
+    border: 4px dashed #000;
+}
+
+/* =========================================
+   5. RESPONSIVE
+   ========================================= */
+@media (max-width: 768px) {
+    .header-left { flex-direction: column; text-align: center; }
+    .item-info { flex-direction: column; align-items: flex-start; gap: 5px; }
+    .card { padding: 1.5rem; }
 }

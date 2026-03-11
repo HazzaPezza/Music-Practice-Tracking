@@ -1,11 +1,12 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
-from app.forms import SignUpForm, LoginForm
+from app.forms import SignUpForm, LoginForm, EditProfile
 from werkzeug.security import generate_password_hash
 from app import db
 from app.models.track import User
 
 main_bp = Blueprint('main', __name__)
+
 
 # ----- Index Routes and API Endpoints -----
 @main_bp.route('/')
@@ -74,17 +75,30 @@ def login():
             
     return render_template('login.html', form=form)
 
+
 # ----- Profile and Logout Routes and API Endpoints -----
 @main_bp.route('/profile')
 @login_required
 def profile():
     return render_template('profile.html', user=current_user)
 
-# This is a logout route that will clear the session and log the user out.
+@main_bp.route('/edit_profile', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    form = EditProfile()
+    if form.validate_on_submit():
+        current_user.userdetails.user_bio = form.user_bio.data
+        db.session.commit()
+        flash('Profile updated successfully!', 'success')
+        return redirect(url_for('main.profile'))
+    return render_template('edit_profile.html', form=form)
+
+
 @main_bp.route('/logout')
 def logout():
     logout_user() # Clears the session
     return redirect(url_for('main.login'))
+
 
 # ----- Practice Session and Note Routes and API Endpoints -----
 @main_bp.route('/add_session')
@@ -92,7 +106,3 @@ def logout():
 def add_session():
     return render_template('add_session.html')
 
-@main_bp.route('/add_note')
-@login_required
-def add_note():
-    return render_template('add_note.html')

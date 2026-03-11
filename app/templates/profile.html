@@ -33,37 +33,32 @@
         <p class="bio-text">{{ user.bio|default('No bio yet. Start writing your musical journey...') }}</p>
     </div>
 
-    <div class="profile-grid">
-        <div class="data-block card sessions-accent">
-            <div class="block-header">
-                <h2>Sessions</h2>
-                <a href="{{ url_for('main.add_session') }}" class="add-btn">+</a>
-            </div>
-            <ul class="data-list">
-                {% for session in sessions %}
-                    <li>
-                        <span class="session-date">{{ session.date }}</span>
-                        <span class="session-title">{{ session.title }}</span>
-                    </li>
-                {% else %}
-                    <li class="empty-msg">No sessions recorded.</li>
-                {% endfor %}
-            </ul>
+    <div class="data-block card full-width-block">
+        <div class="block-header">
+            <h2>Practice Sessions</h2>
+            <a href="{{ url_for('main.add_session') }}" class="add-btn" title="Add Session">+</a>
         </div>
 
-        <div class="data-block card notes-accent">
-            <div class="block-header">
-                <h2>Notes</h2>
-                <a href="{{ url_for('main.add_note') }}" class="add-btn">+</a>
-            </div>
-            <ul class="data-list">
-                {% for note in notes %}
-                    <li>{{ note.content|truncate(60) }}</li>
-                {% else %}
-                    <li class="empty-msg">No notes yet.</li>
-                {% endfor %}
-            </ul>
-        </div>
+        <ul class="data-list">
+            {% for session in sessions %}
+                <li class="list-item">
+                    <div class="item-main">
+                        <div class="item-info">
+                            <span class="item-title">{{ session.title }}</span>
+                            <span class="item-date">{{ session.date }}</span>
+                        </div>
+                        {# Including notes directly inside the session entry #}
+                        {% if session.notes %}
+                            <div class="session-notes-preview">
+                                <strong>Notes:</strong> {{ session.notes|truncate(120) }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </li>
+            {% else %}
+                <li class="empty-msg">No sessions recorded yet. Time to pick up your instrument!</li>
+            {% endfor %}
+        </ul>
     </div>
 </div>
 {% endblock %}

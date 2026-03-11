@@ -22,3 +22,16 @@ class User(UserMixin, db.Model):
   def __repr__(self):
     return '<User {}>'.format(self.username)
   
+  
+  class UserDetails(db.Model):
+    # Define the UserDetails model with id, user_id, and practice_time fields.
+    # The id is the primary key, user_id is a foreign key referencing the User model, and practice_time stores the total practice time in seconds.
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), unique=True)
+    user_bio = db.Column(db.String(300))
+    profile_picture = db.Column(db.String(200), nullable=False, default='.static/images/generic_avatar.png')
+    
+
+    def __repr__(self):
+        return '<UserDetails for User ID {}>'.format(self.user_id)
+  

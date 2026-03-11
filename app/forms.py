@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, FieldList
 from wtforms.validators import DataRequired, Email, Length, Regexp, ValidationError
 from app.models.track import User
 
@@ -48,3 +48,9 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
     remember_me = BooleanField('Remember Me')
+
+
+class EditProfile(FlaskForm):
+    user_bio = StringField('Bio', validators=[Length(max=300, message='Bio must be less than 300 characters.')])
+    instruments_played = FieldList(StringField('Instrument'), min_entries=1, max_entries=5)
+    submit = SubmitField('Update Profile')
