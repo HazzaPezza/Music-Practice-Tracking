@@ -1,64 +1,80 @@
-{% extends "base.html" %}
+{% extends "base.html" %} 
 
 {% block styles %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
-{% endblock %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/profile.css') }}"
+/>
+{% endblock %} 
 
 {% block content %}
 <div class="background-grid"></div>
 
 <div class="profile-container">
-    <div class="profile-header card">
-        <div class="header-left">
-            <div class="profile-photo">
-                <img src="{{ user.profile_pic_url|default(url_for('static', filename='images/generic_avatar.png')) }}" alt="Profile Picture">
-            </div>
-            <div class="header-text">
-                <h1>{{ user.username }}</h1>
-                <span class="instrument-tag">{{ user.instrument|default('Multi-instrumentalist') }}</span>
-            </div>
+  <div class="profile-header card">
+    <div class="header-left">
+      <div class="profile-photo">
+        <img
+          src="{{ user.profile_pic_url|default(url_for('static', filename='images/generic_avatar.png')) }}"
+          alt="Profile Picture"
+        />
+      </div>
+      <div class="header-text">
+        <h1>{{ user.username }}</h1>
+        <span class="instrument-tag">
+            {{ user.instrument|default('Multi-instrumentalist') }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="action-bar">
+    <a href="{{ url_for('main.index') }}" class="btn secondary-btn">Home</a>
+    <a href="#" class="btn secondary-btn">Edit Profile</a>
+    <a href="{{ url_for('main.logout') }}" class="btn logout-btn">Logout</a>
+  </div>
+
+  <div class="bio-section card">
+    <div class="block-header">
+      <h2>Biography</h2>
+    </div>
+    <p class="bio-text">
+      {{ user.bio|default('No bio yet. Start writing your musical journey...')}}
+    </p>
+  </div>
+
+  <div class="data-block card full-width-block">
+    <div class="block-header">
+      <h2>Practice Sessions</h2>
+      <a
+        href="{{ url_for('main.add_session') }}"
+        class="add-btn"
+        title="Add Session"
+        >+</a
+      >
+    </div>
+
+    <ul class="data-list">
+      {% for session in sessions %}
+      <li class="list-item {{ loop.cycle('note-blue', 'note-pink', 'note-yellow') }}">
+        <div class="item-main">
+          <div class="item-info">
+            <span class="item-title">{{ session.instrument }}</span>
+            <span class="item-date">{{ session.date }}</span>
+          </div>
+          <span class="item-duration">Duration: {{ session.duration }}</span>
+          {% if session.notes %}
+          <div class="session-notes-preview">
+            <strong>Notes:</strong> {{ session.notes|truncate(250) }}
+          </div>
+          {% endif %}
         </div>
-    </div>
-
-    <div class="action-bar">
-        <a href="{{ url_for('main.index') }}" class="btn secondary-btn">Home</a>
-        <a href="#" class="btn secondary-btn">Edit Profile</a>
-        <a href="{{ url_for('main.logout') }}" class="btn logout-btn">Logout</a>
-    </div>
-
-    <div class="bio-section card">
-        <div class="block-header">
-            <h2>Biography</h2>
-        </div>
-        <p class="bio-text">{{ user.bio|default('No bio yet. Start writing your musical journey...') }}</p>
-    </div>
-
-    <div class="data-block card full-width-block">
-        <div class="block-header">
-            <h2>Practice Sessions</h2>
-            <a href="{{ url_for('main.add_session') }}" class="add-btn" title="Add Session">+</a>
-        </div>
-
-        <ul class="data-list">
-            {% for session in sessions %}
-                <li class="list-item">
-                    <div class="item-main">
-                        <div class="item-info">
-                            <span class="item-title">{{ session.title }}</span>
-                            <span class="item-date">{{ session.date }}</span>
-                        </div>
-                        {# Including notes directly inside the session entry #}
-                        {% if session.notes %}
-                            <div class="session-notes-preview">
-                                <strong>Notes:</strong> {{ session.notes|truncate(120) }}
-                            </div>
-                        {% endif %}
-                    </div>
-                </li>
-            {% else %}
-                <li class="empty-msg">No sessions recorded yet. Time to pick up your instrument!</li>
-            {% endfor %}
-        </ul>
-    </div>
+      </li>
+      {% else %}
+      <li class="empty-msg">
+        No sessions recorded yet. Time to pick up your instrument!
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
 </div>
 {% endblock %}

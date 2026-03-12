@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, FieldList
-from wtforms.validators import DataRequired, Email, Length, Regexp, ValidationError
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, FieldList, DateField, TextAreaField, IntegerField, SelectField
+from wtforms.validators import DataRequired, Email, Length, Regexp, ValidationError, NumberRange, Length, Optional
 from app.models.track import User
 
 class SignUpForm(FlaskForm):
@@ -54,3 +54,27 @@ class EditProfile(FlaskForm):
     user_bio = StringField('Bio', validators=[Length(max=300, message='Bio must be less than 300 characters.')])
     instruments_played = FieldList(StringField('Instrument'), min_entries=1, max_entries=5)
     submit = SubmitField('Update Profile')
+
+from flask_wtf import FlaskForm
+from datetime import date
+
+class PracticeSessionForm(FlaskForm):
+    instrument = SelectField('Instrument', validators=[DataRequired()], choices=[
+        'Piano',
+        'Guitar',
+        'Violin',
+        'Drums',
+        'Vocals',
+        'Other'
+    ])
+    
+    # Setting default to today's date makes the UX much smoother
+    date = DateField('Date', validators=[DataRequired()], default=date.today)
+    
+    # We split duration into two fields for a better UI
+    hours = IntegerField('Hours', validators=[NumberRange(min=0)], default=0)
+    minutes = IntegerField('Minutes', validators=[NumberRange(min=0, max=59)], default=0)
+    
+    notes = TextAreaField('Practice Notes', validators=[Optional(), Length(max=3000)])
+    
+    submit = SubmitField('Log Session')

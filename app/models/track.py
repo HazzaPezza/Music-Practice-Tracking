@@ -23,6 +23,7 @@ class User(UserMixin, db.Model):
     return '<User {}>'.format(self.username)
   
   
+  """ --- IGNORE: NEEDS FIXING LATER ---
   class UserDetails(db.Model):
     # Define the UserDetails model with id, user_id, and practice_time fields.
     # The id is the primary key, user_id is a foreign key referencing the User model, and practice_time stores the total practice time in seconds.
@@ -34,4 +35,16 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return '<UserDetails for User ID {}>'.format(self.user_id)
-  
+"""
+
+class PracticeSession(db.Model):
+  id = db.Column(db.Integer, primary_key=True)
+  user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+  date = db.Column(db.Date)
+  instrument = db.Column(db.String(50))
+  duration = db.Column(db.Interval) 
+  notes = db.Column(db.String(3000))
+
+  def __repr__(self):
+      return '<PracticeSession {} for User ID {}>'.format(self.date, self.user_id)
+    

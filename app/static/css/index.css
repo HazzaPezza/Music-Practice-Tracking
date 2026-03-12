@@ -1,181 +1,276 @@
-/* Layout Reset & Background */
-* {
-    box-sizing: border-box;
+/* --- 1. GLOBAL RESET & VARIABLES --- */
+:root {
+    --primary-green: #A3E635;
+    --primary-blue: #60A5FA;
+    --primary-yellow: #FACC15;
+    --primary-red: #D21010;
+    --black: #000000;
+    --white: #ffffff;
+    --border-width: 3px;
+    --section-divider: 8px; /* Heavy divider line */
+    --neo-shadow: 10px 10px 0px 0px #000;
 }
+
+* { box-sizing: border-box; }
 
 body, html {
     margin: 0;
     padding: 0;
-    /* RESTORED: Your original font stack */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f3f3f3; 
-    color: #000;
-    height: 100%;
+    color: var(--black);
+    overflow-x: hidden;
 }
 
-/* Background Grid Fix */
-.background-grid {
-    position: fixed;
+/* --- 2. NAVIGATION --- */
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 5%;
+    position: absolute; 
     top: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
-    z-index: 0; 
+    z-index: 100;
+}
+
+.nav-logo {
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+}
+
+.nav-logo span { color: var(--primary-blue); }
+
+.nav-auth { display: flex; gap: 20px; align-items: center; }
+
+.nav-btn-alt {
+    text-decoration: none;
+    color: var(--black);
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.nav-btn-main {
+    text-decoration: none;
+    background: var(--primary-red);
+    color: var(--white);
+    padding: 10px 22px;
+    font-weight: 800;
+    text-transform: uppercase;
+    border: var(--border-width) solid var(--black);
+    box-shadow: 4px 4px 0px var(--black);
+}
+
+/* --- 3. HERO SECTION (WITH GRID & DIVIDER) --- */
+.hero-section {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 0 20px;
+    
+    /* Grid Background only on Hero */
+    background-color: #f3f3f3;
     background-image: 
         linear-gradient(#d1d1d1 1px, transparent 1px),
         linear-gradient(90deg, #d1d1d1 1px, transparent 1px);
     background-size: 40px 40px;
-    pointer-events: none; 
+
+    /* The Dividing Line */
+    border-bottom: var(--section-divider) solid var(--black);
 }
 
-.page-wrapper {
-    position: relative;
-    z-index: 1; 
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 40px 20px;
-}
-
-/* --- ANIMATIONS --- */
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-12px); }
-    100% { transform: translateY(0px); }
-}
-
-.float-main { animation: float 6s ease-in-out infinite; }
-.float-1 { animation: float 5s ease-in-out infinite; }
-.float-2 { animation: float 7s ease-in-out infinite; }
-.float-3 { animation: float 5.5s ease-in-out infinite; }
-
-/* --- HERO SECTION --- */
-.hero-section {
-    display: flex;
-    justify-content: center;
-    padding: 60px 0;
-}
-
-.main-page-items {
-    max-width: 700px;
-    padding: 3.5rem;
-    border: 3px solid #000;
-    box-shadow: 12px 12px 0px 0px #000;
-    background-color: #fff;
+.hero-content {
+    max-width: 800px;
     text-align: center;
+    padding: 3.5rem;
+    background: var(--white);
+    border: var(--border-width) solid var(--black);
+    box-shadow: 15px 15px 0px 0px var(--black);
 }
 
 .central-header {
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: bold;
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    line-height: 0.9;
     margin-bottom: 1.5rem;
-    border-bottom: 3px solid #000;
+}
+
+.highlight {
+    background: var(--primary-yellow);
+    padding: 0 10px;
     display: inline-block;
-    padding-bottom: 10px;
+    transform: rotate(-1deg);
 }
 
 .central-description {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     line-height: 1.6;
     margin-bottom: 2.5rem;
     color: #333;
+    max-width: 650px;
 }
 
-/* --- FEATURES GRID --- */
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 40px;
-    margin-top: 40px;
-    padding-bottom: 80px;
-}
-
-.feature-card {
-    padding: 2.5rem;
-    border: 3px solid #000;
-    background-color: #fff;
-    box-shadow: 10px 10px 0px 0px #000;
-    transition: all 0.3s ease;
-}
-
-.feature-card:hover, .main-page-items:hover {
-    animation-play-state: paused;
-    box-shadow: 15px 15px 0px 0px #000;
-    transform: scale(1.02);
-}
-
-.feature-card h3 {
-    font-size: 1.4rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-top: 0;
-    margin-bottom: 1rem;
-    border-bottom: 2px solid #000;
-    display: inline-block;
-}
-
-.feature-card p {
-    font-size: 1rem;
-    color: #111;
-}
-
-/* Post-it Note Colors */
-.tracker { background-color: #A3E635; } 
-.social { background-color: #60A5FA; } 
-.notes { background-color: #FACC15; }
-
-/* --- BUTTONS --- */
-.nav-buttons {
+/* --- 4. FEATURE STRIPS (RESTORED RATIOS) --- */
+.feature-strip {
+    min-height: 70vh;
+    padding: 80px 5%;
     display: flex;
-    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    background-color: #f3f3f3;
+    border-bottom: var(--border-width) solid var(--black);
+}
+
+.strip-container {
+    max-width: 1100px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Ensures spacing between text and post-it */
+    gap: 60px;
+}
+
+.reverse .strip-container { flex-direction: row-reverse; }
+
+.strip-text { 
+    flex: 1.2; /* Text takes up slightly more space but is contained */
+}
+
+.strip-text h2 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+}
+
+/* FIXED POST-IT SIZING */
+.post-it {
+    flex: 0 0 400px; /* Post-it stays exactly 400px wide, no shrinking */
+    min-height: 400px; /* Forces it to be square-ish */
+    border: var(--border-width) solid var(--black);
+    box-shadow: var(--neo-shadow);
+    padding: 40px;
+    transform: rotate(2deg);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
 }
 
+.post-it:hover {
+    transform: rotate(0deg) scale(1.05);
+}
+
+.tracker-color { background: var(--primary-green); }
+.social-color { background: var(--primary-blue); }
+.notes-color { background: var(--primary-yellow); }
+
+/* --- 5. POST-IT CONTENT --- */
+.post-it-tag {
+    background: var(--black);
+    color: var(--white);
+    font-size: 0.8rem;
+    padding: 5px 12px;
+    text-transform: uppercase;
+    font-weight: 900;
+    align-self: flex-start;
+    margin-bottom: 25px;
+}
+
+.mini-chart { display: flex; align-items: flex-end; gap: 10px; height: 120px; margin-bottom: 20px; }
+.bar { width: 30px; background: var(--black); border: 2px solid var(--black); }
+
+.notification-blob {
+    background: var(--white);
+    border: var(--border-width) solid var(--black);
+    padding: 15px;
+    margin-bottom: 15px;
+    font-weight: 800;
+    box-shadow: 5px 5px 0px var(--black);
+}
+
+/* --- 6. BUTTONS & UI --- */
 .main-nav-button {
-    background-color: #000;
-    color: #fff;
-    border: 2px solid #000;
-    padding: 12px 30px;
-    font-size: 1rem;
-    font-weight: bold;
+    background-color: var(--black);
+    color: var(--white);
+    border: var(--border-width) solid var(--black);
+    padding: 18px 45px;
+    font-size: 1.2rem;
+    font-weight: 900;
     text-transform: uppercase;
     cursor: pointer;
-    box-shadow: 6px 6px 0px 0px #000; 
-    transition: all 0.2s ease;
-    min-width: 140px;
+    box-shadow: 8px 8px 0px var(--primary-green);
+    transition: 0.2s;
 }
 
 .main-nav-button:hover {
-    background-color: #fff;
-    color: #000;
+    transform: translate(-4px, -4px);
+    box-shadow: 12px 12px 0px var(--primary-green);
 }
 
-.login {
-    background-color: rgb(210, 16, 16);
-    color: white;
-}
-
-.login:hover {
-    background-color: white;
-    color: rgb(210, 16, 16);
-}
-
-.main-nav-button:active {
-    transform: translate(4px, 4px);
-    box-shadow: 0px 0px 0px 0px #000;
-}
-
-.mini-footer {
-    text-align: center;
-    padding: 60px;
-    font-weight: bold;
+/* --- 7. SCROLL INDICATOR --- */
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: 900;
     text-transform: uppercase;
-    z-index: 3;
+    font-size: 0.7rem;
 }
 
-/* Mobile Tweaks */
-@media (max-width: 600px) {
-    .nav-buttons { flex-direction: column; gap: 15px; }
-    .float-main, .float-1, .float-2, .float-3 { animation: none; }
+.arrow {
+    width: 12px;
+    height: 12px;
+    border-right: 4px solid #000;
+    border-bottom: 4px solid #000;
+    transform: rotate(45deg);
+    margin-top: 10px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {transform: translateY(0) rotate(45deg);}
+    40% {transform: translateY(-10px) rotate(45deg);}
+}
+
+/* --- 8. ANIMATIONS (JS REVEAL) --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s ease-out;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.float-main { animation: float 6s ease-in-out infinite; }
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+}
+
+/* --- 9. FOOTER --- */
+.footer-main {
+    text-align: center;
+    padding: 120px 20px;
+    background: var(--black);
+    color: var(--white);
+}
+
+/* --- 10. MOBILE --- */
+@media (max-width: 900px) {
+    .strip-container { flex-direction: column !important; text-align: center; }
+    .post-it { flex: 0 0 auto; width: 100%; min-height: 350px; }
+    .hero-content { padding: 2rem; }
 }

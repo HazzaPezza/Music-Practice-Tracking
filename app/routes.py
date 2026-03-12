@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
-from app.forms import SignUpForm, LoginForm, EditProfile
+from app.forms import SignUpForm, LoginForm, EditProfile, PracticeSessionForm
 from werkzeug.security import generate_password_hash
 from app import db
-from app.models.track import User
+from app.models.track import User, PracticeSession
 
 main_bp = Blueprint('main', __name__)
 
@@ -80,7 +80,8 @@ def login():
 @main_bp.route('/profile')
 @login_required
 def profile():
-    return render_template('profile.html', user=current_user)
+    sessions = PracticeSession.query.filter_by(user_id=current_user.id).order_by(PracticeSession.date.desc()).limit(10).all()
+    return render_template('profile.html', user=current_user, sessions=sessions)
 
 @main_bp.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
@@ -101,8 +102,26 @@ def logout():
 
 
 # ----- Practice Session and Note Routes and API Endpoints -----
-@main_bp.route('/add_session')
-@login_required
+from datetime import timedelta
+
+@main_bp.route('/add_session', methods=['GET', 'POST'])
 def add_session():
-    return render_template('add_session.html')
+    form = PracticeSessionForm()
+    if form.validate_on_submit():
+        # Combine hours and minutes into a timedelta object
+        session_duration = timedelta(hours=form.hours.data, minutes=form.minutes.data)
+        
+        new_session = PracticeSession(
+            user_id=current_user.id, # Assuming you're using Flask-Login
+            date=form.date.data,
+            instrument=form.instrument.data,
+            duration=session_duration,
+            notes=form.notes.data
+        )
+        db.session.add(new_session)
+        db.session.commit()
+        return redirect(url_for('main.profile'))
+        
+    return render_template('add_session.html', form=form)
+
 

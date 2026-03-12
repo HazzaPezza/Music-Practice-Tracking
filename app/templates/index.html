@@ -3,46 +3,122 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Practice Tracker</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}">
+    <title>Music Practice Tracker | Master Your Instrument</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 </head>
 <body>
     <div class="background-grid"></div>
 
-    <main class="page-wrapper">
+    <nav class="top-nav">
+        <div class="nav-logo">BEAT<span>TRACK</span></div>
+        <div class="nav-auth">
+            <a href="{{ url_for('main.login') }}" class="nav-btn-alt">Login</a>
+            <a href="{{ url_for('main.sign_up') }}" class="nav-btn-main">Join Now</a>
+        </div>
+    </nav>
+
+    <main>
         <section class="hero-section">
-            <div class="main-page-items float-main">
-                <h1 class="central-header">Master Your Instrument</h1>
-                <p class="central-description">A bold space to track sessions, share progress, and hit your musical goals.</p>
+            <div class="hero-content float-main reveal">
+                <h1 class="central-header">Master Your <br><span class="highlight">Instrument</span></h1>
+                <p class="central-description">The boldest space to track sessions, share progress, and hit your musical goals. Built for musicians, by musicians.</p>
                 <div class="nav-buttons">
-                    <a href="{{ url_for('main.sign_up') }}" class="nav-link">
-                        <button class="main-nav-button">Get Started</button>
+                    <a href="{{ url_for('main.sign_up') }}">
+                        <button class="main-nav-button">Get Started Now</button>
                     </a>
-                    <a href="{{ url_for('main.login') }}" class="nav-link">
-                        <button class="main-nav-button login">Login</button>
-                    </a>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <span>Scroll to explore</span>
+                <div class="arrow"></div>
+            </div>
+        </section>
+
+        <section class="feature-strip reveal">
+            <div class="strip-container">
+                <div class="strip-text">
+                    <h2>Visual <br>Progress</h2>
+                    <p>Stop practicing in the dark. Our high-performance dashboard gives you the raw data on your progress with heatmaps and streak counters.</p>
+                </div>
+                <div class="post-it tracker-color">
+                    <div class="post-it-content">
+                        <span class="post-it-tag">Practice Streak</span>
+                        <div class="mini-chart">
+                            <div class="bar" style="height: 40%"></div>
+                            <div class="bar" style="height: 70%"></div>
+                            <div class="bar" style="height: 90%"></div>
+                            <div class="bar" style="height: 60%"></div>
+                        </div>
+                        <p style="font-weight: 800; font-size: 1.2rem;">12 DAY STREAK!</p>
+                        <p>You're in the top 5% this week.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="features-grid">
-            <div class="feature-card tracker float-1">
-                <h3>Track Sessions</h3>
-                <p>Log your hours and visualize your progress with a high-performance dashboard.</p>
+        <section class="feature-strip reveal reverse">
+            <div class="strip-container">
+                <div class="strip-text">
+                    <h2>Stay <br>Connected</h2>
+                    <p>Music isn't meant to be played in a vacuum. Share your clips, get advice, and join a community that actually listens.</p>
+                </div>
+                <div class="post-it social-color">
+                    <div class="post-it-content">
+                        <span class="post-it-tag">Community Feed</span>
+                        <div class="notification-blob">"Killer tone on those scales!"</div>
+                        <div class="notification-blob">@JazzMaster followed you</div>
+                        <div class="notification-blob">New duet invite from Sarah...</div>
+                    </div>
+                </div>
             </div>
-            <div class="feature-card social float-2">
-                <h3>Connect & Learn</h3>
-                <p>Post updates, get advice, and join a community of musicians just like you.</p>
-            </div>
-            <div class="feature-card notes float-3">
-                <h3>Smart Notes</h3>
-                <p>Keep your sheet music notes and practice reminders in one organized place.</p>
+        </section>
+
+        <section class="feature-strip reveal">
+            <div class="strip-container">
+                <div class="strip-text">
+                    <h2>Smart <br>Notes</h2>
+                    <p>Keep your sheet music annotations and practice reminders in one organized place. No more lost sticky notes on your music stand.</p>
+                </div>
+                <div class="post-it notes-color">
+                    <div class="post-it-content">
+                        <span class="post-it-tag">Sheet Music PDF</span>
+                        <div style="border: 2px dashed #000; padding: 15px; background: #fff; margin-top: 10px;">
+                            <p style="margin: 0; font-family: monospace;">// Reminder: Focus on the transition at Bar 32. Keep the wrist relaxed.</p>
+                        </div>
+                        <p style="margin-top: 15px; font-weight: 700;">Pinned to: Chopin - Nocturne Op. 9</p>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
-    <footer class="mini-footer">
-        <p>&copy; 2026 Music Practice Tracker. Stay Loud.</p>
+    <footer class="footer-main">
+        <div class="footer-content">
+            <h3>Ready to level up?</h3>
+            <a href="{{ url_for('main.sign_up') }}">
+                <button class="main-nav-button" style="box-shadow: 8px 8px 0px var(--primary-blue);">Start Free Trial</button>
+            </a>
+            <p class="copyright">&copy; 2026 BEATTRACK. STAY LOUD.</p>
+        </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach(el => observer.observe(el));
+        });
+    </script>
 </body>
 </html>
