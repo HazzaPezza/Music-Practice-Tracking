@@ -125,7 +125,6 @@ body, html {
     justify-content: center;
     align-items: center;
     background-color: #f3f3f3;
-    border-bottom: var(--border-width) solid var(--black);
 }
 
 .strip-container {

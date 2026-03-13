@@ -80,7 +80,7 @@ def login():
 @main_bp.route('/profile')
 @login_required
 def profile():
-    sessions = PracticeSession.query.filter_by(user_id=current_user.id).order_by(PracticeSession.date.desc()).limit(10).all()
+    sessions = PracticeSession.query.filter_by(user_id=current_user.id).order_by(PracticeSession.id.desc()).limit(6).all()
     return render_template('profile.html', user=current_user, sessions=sessions)
 
 @main_bp.route('/edit_profile', methods=['GET', 'POST'])
